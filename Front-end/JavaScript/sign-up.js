@@ -12,11 +12,11 @@ async function submitForm() {
         return;
     }
 
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!emailPattern.test(email)) {
-        emailError.textContent = 'Please enter a valid email.';
-        return;
-    }
+    // const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    // if (!emailPattern.test(email)) {
+    //     emailError.textContent = 'Please enter a valid email.';
+    //     return;
+    // }
 
     const userData = {
         name,
