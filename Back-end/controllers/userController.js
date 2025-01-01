@@ -1,10 +1,10 @@
 
 const path = require("path");
-const User = require("../models/");
+const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const sequelize = require("../util/database");
-const Sib = require("sib-api-v3-sdk");
+// const Sib = require("sib-api-v3-sdk");
 const { Op } = require("sequelize");
 
 const getLoginPage = async (req, res, next) => {
