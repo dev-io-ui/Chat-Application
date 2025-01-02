@@ -3,8 +3,7 @@ async function handleLogin(e){
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value.trim();
 
-    const emailError = document.getElementById('emailError');
-    emailError.textContent = '';
+  
 
     if ( !email || !password) {
         alert('Please fill in all fields.');
@@ -26,7 +25,7 @@ async function handleLogin(e){
         const response = await axios.post('http://localhost:3000/user/login', userData);
 
         if (response.status === 200) {
-            localStorage.setItem("token", result.data.token);
+            localStorage.setItem("token", response.data.token);
             alert('Login successful!');
             // window.location.href = './homePage.html';
             console.log('User Login:', response.data);
@@ -39,4 +38,8 @@ async function handleLogin(e){
     }
 }
 
+async function goToSignUp() {
+    window.location.href = './sign-up.html';
+}
 document.getElementById('loginForm').addEventListener("submit",handleLogin);
+document.getElementById('goToSignUp').addEventListener("click",goToSignUp);

@@ -43,4 +43,9 @@ async function handleSignUp(e) {
     }
 }
 
+async function goToLogin() {
+    window.location.href = './login.html';
+}
+
 document.getElementById('signupForm').addEventListener("submit",handleSignUp);
+document.getElementById('goToLogin').addEventListener("click",goToLogin);
