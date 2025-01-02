@@ -78,7 +78,7 @@ const postUserLogin = async (req, res, next) => {
               token: generateAccessToken(user.id, user.email),
           });
       } else {
-          return res.status(401).json({ error: 'Wrong Password' });
+          return res.status(401).json({ error: 'User Not Authorized' });
       }
   } catch (err) {
       console.error("Error during login:", err);
