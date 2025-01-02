@@ -1,15 +1,12 @@
-async function handleSignUp(e) {
+async function handleLogin(e){
     e.preventDefault();
-
-    const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
-    const phone = document.getElementById('phone').value.trim();
     const password = document.getElementById('password').value.trim();
 
     const emailError = document.getElementById('emailError');
     emailError.textContent = '';
 
-    if (!name || !email || !phone || !password) {
+    if ( !email || !password) {
         alert('Please fill in all fields.');
         return;
     }
@@ -21,19 +18,18 @@ async function handleSignUp(e) {
     // }
 
     const userData = {
-        name,
         email,
-        phone,
         password,
     };
 
     try {
-        const response = await axios.post('http://localhost:3000/user/sign-up', userData);
-       
-        if (response.status === 201) {
-            alert("sign-up successfully");
-            window.location.href = './login.html';
-            console.log('User created:', response.data);
+        const response = await axios.post('http://localhost:3000/user/login', userData);
+
+        if (response.status === 200) {
+            localStorage.setItem("token", result.data.token);
+            alert('Login successful!');
+            // window.location.href = './homePage.html';
+            console.log('User Login:', response.data);
         } else {
             alert('Something went wrong. Please try again.');
         }
@@ -43,4 +39,4 @@ async function handleSignUp(e) {
     }
 }
 
-document.getElementById('signupForm').addEventListener("submit",handleSignUp);
+document.getElementById('loginForm').addEventListener("submit",handleLogin);

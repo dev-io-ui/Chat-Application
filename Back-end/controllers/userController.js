@@ -5,7 +5,16 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const sequelize = require("../util/database");
 // const Sib = require("sib-api-v3-sdk");
-const { Op } = require("sequelize");
+const { Op, where } = require("sequelize");
+
+
+let generateAccessToken = (id, email)=> {
+  return jwt.sign(
+      { id: id, email: email },
+      "kjhsgdfiuiew889kbasgdfskjabsdfjlabsbdljhsd"
+  );
+};
+
 
 const getLoginPage = async (req, res, next) => {
   try {
@@ -15,30 +24,73 @@ const getLoginPage = async (req, res, next) => {
   }
 };
 
-const postUserSignUp = async (req, res, next) => {
+const postUserSignUp = async (req, res) => {
+  const { name, email, phone, password } = req.body;
+  console.log(name, 'name', email, 'email', phone, 'phone', password);
+  const t = await sequelize.transaction();
+  try {
+      const existingUser = await User.findOne({ where: { email } });
 
-    const { name, email, phone, password } = req.body;
+      if (existingUser) {
+
+          return res.status(400).json({ error: 'User already exists' });
+
+      }
+      // Hash the password
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      // Create a new user
+      const newUser = await User.create({
+          name,
+          email,
+          phone,
+          password: hashedPassword,
+      },{transaction:t});
+
+      await t.commit();
+      res.status(201).json({ message: 'User added successfully', user: newUser });
+  }
+  catch (err) {
+      await t.rollback();
+      console.error("Error in POST /add-user:", err);
+      res.status(500).json({ error: 'An error occurred while adding the user.' });
+  }
+};
+
+
+const postUserLogin = async (req, res, next) => {
+  const { email, password } = req.body;
 
   try {
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ message: "User already exists" });
-    }
+      const user = await User.findOne({ where: { email: email } });
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+      if (!user) {
+          return res.status(404).json({ error: 'User not found' });
+      }
 
-    const newUser = new User({ name, email, phone, password: hashedPassword });
-    await newUser.save();
+      // Use bcrypt to compare the password asynchronously with await
+      const isMatch = await bcrypt.compare(password, user.password);
 
-    res.status(201).json({ message: "User registered successfully" });
-  } catch (error) {
-    res.status(500).json({ message: "Server error" });
+      if (isMatch) {
+          return res.status(200).json({
+              success: true,
+              message: "Login Successful!",
+              token: generateAccessToken(user.id, user.email),
+          });
+      } else {
+          return res.status(401).json({ error: 'Wrong Password' });
+      }
+  } catch (err) {
+      console.error("Error during login:", err);
+      return res.status(500).json({ error: 'Something went wrong' });
   }
-  };
+};
+
 
 
   module.exports = {
     getLoginPage,
     postUserSignUp,
+    postUserLogin,
+    generateAccessToken
   };
