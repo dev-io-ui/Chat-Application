@@ -16,3 +16,13 @@ exports.sendMessage = async (req, res, next) => {
     return res.status(400).json({ message: "Error" });
   }
 };
+
+exports.getMessages = async (req, res, next) => {
+    try {
+      const messages = await Chat.findAll();
+      console.log(messages);
+      return res.status(200).json({ messages: messages });
+    } catch (error) {
+      console.log(error);
+    }
+  };

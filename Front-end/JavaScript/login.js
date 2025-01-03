@@ -27,7 +27,7 @@ async function handleLogin(e){
         if (response.status === 200) {
             localStorage.setItem("token", response.data.token);
             alert('Login successful!');
-            // window.location.href = './homePage.html';
+            window.location.href = './home.html';
             console.log('User Login:', response.data);
         } else {
             alert('Something went wrong. Please try again.');
