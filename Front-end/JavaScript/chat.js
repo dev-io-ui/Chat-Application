@@ -97,5 +97,10 @@ function decodeToken(token) {
     }
   };
 
+  setInterval(() => {
+    getMessages();
+  }, 1000);
+  
+
   messageSendBtn.addEventListener("click", messageSend);
   document.addEventListener("DOMContentLoaded", getMessages);
