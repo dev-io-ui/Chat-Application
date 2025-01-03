@@ -97,7 +97,7 @@ body {
 }
 
 .msg_card_body {
-    max-height: 400px;
+    max-height: 326px;
     overflow-y: auto;
     padding: 15px;
     background-color: #f9f9f9;
