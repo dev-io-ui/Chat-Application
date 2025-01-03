@@ -9,10 +9,8 @@
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <link
-      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-      rel="stylesheet"
-    />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css"
@@ -61,7 +59,7 @@
                   </div>
 
                   <div class="col-md-8 col-xl-8 chat">
-                    <div class="card">
+                    <div class="card" id="chatBox">
                       <div class="card-header msg_head">
                         <div class="d-flex bd-highlight">
                           <div class="user_info">
@@ -102,8 +100,9 @@
                           <textarea
                             class="form-control type_msg"
                             placeholder="Type your message..."
+                            id="messageTextArea"
                           ></textarea>
-                          <div class="input-group-append">
+                          <div class="input-group-append" id="messageSendBtn">
                             <span class="input-group-text"><i class="fas fa-location-arrow"></i></span>
                           </div>
                         </div>
@@ -118,12 +117,19 @@
       </div>
     </div>
 
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.js"
     ></script>
+    <script src="../JavaScript/home.js"></script>
+
+    <script src="../JavaScript/chat.js"></script>
+
     <script>
       $(document).ready(function () {
         $("#action_menu_btn").click(function () {

@@ -109,6 +109,9 @@ body {
     color: white !important;
     cursor: pointer;
   }
+  .attach_btn:hover{
+    cursor: pointer;
+  }
   .people-list .chat-list li.active {
     background: #efefef;
   }
