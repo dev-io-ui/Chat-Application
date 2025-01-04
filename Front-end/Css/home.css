@@ -181,6 +181,71 @@ body {
 .input-group-text:hover {
     background-color: var(--primary-hover-color);
 }
+/* Action Menu Button */
+#actionMenuBtn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0px 4px 8px var(--shadow-color);
+}
+
+#actionMenuBtn:hover {
+    background-color: var(--primary-hover-color);
+    transform: scale(1.1);
+}
+
+/* Action Menu */
+.action_menu {
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    background-color: var(--container-color);
+    color: var(--text-color);
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px var(--shadow-color);
+    overflow: hidden;
+    z-index: 1000;
+    display: none; /* Initially hidden */
+    animation: fadeIn 0.3s ease-in-out;
+   
+}
+
+.action_menu ul {
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+}
+
+.action_menu ul li {
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.action_menu ul li:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Smooth Fade-In Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 /* Icons for video/phone */
 .video_cam span {

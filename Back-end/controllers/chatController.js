@@ -28,12 +28,12 @@ const { Op } = require("sequelize");
 
 exports.sendMessage = async (req, res, next) => {
   try {
-    await Chat.create({
+    const result = await Chat.create({
       name: req.user.name,
       message: req.body.message,
       userId: req.user.id,
     });
-    return res.status(200).json({ message: "Success!" });
+    return res.status(200).json({ result, message: "Success!" });
   } catch (error) {
     console.log(error);
     return res.status(400).json({ message: "Error" });
@@ -41,8 +41,9 @@ exports.sendMessage = async (req, res, next) => {
 };
 
 exports.getMessages = async (req, res, next) => {
-    try {
-      const param = req.params.param;
+  try {
+    const param = req.query.param;
+
     const messages = await Chat.findAll({
       where: {
         id: {
@@ -50,9 +51,9 @@ exports.getMessages = async (req, res, next) => {
         },
       },
     });
-      console.log(messages);
-      return res.status(200).json({ messages: messages });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    console.log(messages);
+    return res.status(200).json({ messages: messages });
+  } catch (error) {
+    console.log(error);
+  }
+};

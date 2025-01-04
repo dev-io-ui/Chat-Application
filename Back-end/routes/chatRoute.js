@@ -5,5 +5,5 @@ const userAuthentication = require("../middleware/auth");
 
 
 router.post("/sendMessage", userAuthentication.authenticate, chatController.sendMessage);
-router.get("/getMessages/:param", userAuthentication.authenticate,chatController.getMessages);
+router.get("/getMessages", userAuthentication.authenticate,chatController.getMessages);
 module.exports = router;
