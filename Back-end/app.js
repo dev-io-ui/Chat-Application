@@ -3,18 +3,24 @@ const app = express();
 const bodyParser = require("body-parser");
 const path = require("path");
 const fs = require("fs");
-const cors = require("cors");
+
+const cors = require("cors"); // Uncomment this line
 app.use(
   cors({
-    origin: "*",
+    origin: "http://localhost:5500", 
+    methods: ["GET", "POST", "PUT", "DELETE"],  
+    allowedHeaders: ["Content-Type", "Authorization"],  
+    credentials: true, 
   })
 );
 const dotenv = require("dotenv");
 dotenv.config();
 const sequelize = require("./util/database");
-app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use(express.static(path.join(__dirname, "../Front-end")));
+
 
 //Router
 const userRouter = require("./routes/userRoute");
@@ -25,7 +31,6 @@ const User = require("./models/userModel");
 const Chat = require("./models/chatModel");
 const Group = require("./models/groupModel");
 const UserGroup = require("./models/userGroup");
-const { FORCE } = require("sequelize/lib/index-hints");
 
 
 app.use("/", userRouter);
@@ -47,6 +52,6 @@ UserGroup.belongsTo(Group);
 sequelize
   .sync()
   .then((result) => {
-    app.listen(process.env.PORT || 3000);
+    app.listen(process.env.PORT || 4000);
   })
   .catch((err) => console.log(err));
