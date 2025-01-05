@@ -48,6 +48,8 @@ Group.hasMany(UserGroup);
 UserGroup.belongsTo(User);
 UserGroup.belongsTo(Group);
 
+const job = require("./jobs/cron");
+job.start();
 
 sequelize
   .sync()
